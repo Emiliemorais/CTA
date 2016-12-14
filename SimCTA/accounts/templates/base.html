@@ -1,0 +1,105 @@
+{% extends "bootstrap_ui/bootstrap-skeleton.html" %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% load i18n %}
+{% load notifications_tags %}
+
+
+{% block head-title %}
+    I do
+{% endblock %}
+
+{% block body-content %}
+
+    <script src="{% static "js/jquery-1.11.1.js" %}"></script>
+    <script src="{% static "js/rango-jquery.js" %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    
+    <div id="urlaccess">
+        {% url 'notifications'%}
+    </div>
+    
+    {% bootstrap_css %}
+        <nav class="navbar navbar-default navbar-fixed-top" id="navbarIdo">
+    	  <div class="container">
+    	    <div class="navbar-header">
+              <a class="navbar-brand" href="/" id="app_title"><i>I do</i></a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                {% if not user.is_authenticated %}
+                    <!-- <li><a href="{% url 'solicit_budget'%}">{% trans 'Solicit your budget' %}</a></li> -->
+            	{% else %}
+                {%endif%}
+                </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if not user.is_authenticated %}
+                    <li>
+                        <a href="{% url 'login'%}">{% trans 'Login' %}</a>
+                    </li>
+                {% else %}
+                    <li class="dropdown notifications-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                      <i class="fa fa-bell-o"></i>
+                      <span class="label label-ido">{% notifications_unread %}</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li class="header">{% trans 'You have'%} {% notifications_unread %} {% trans 'notifications' %}</li>
+                        
+                        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;">
+                        <ul class="menu" style="overflow: hidden; width: 100%; height: 200px;">
+                            {% with user.notifications.unread as unread_notification %}
+                                {% for notification in unread_notification %}
+                                    <input type="hidden" id="notification_id" value="{{ notification.id }}"></input>
+                                    {% if notification.description == "new message"%}
+                                        <a href="{% url 'messages'%}" id='notification_read'>
+                                    {% else %}
+                                        <a href="{% url 'solicited_budgets'%}" id='notification_read'>
+                                    {% endif %}
+                                        {{notification}}
+                                    </a>
+                                    <hr>
+                                {% endfor %}
+                            {% endwith %} 
+                        </ul>
+                        </div>
+                    </ul>
+                    </li>
+                    <li>
+                        <a href="{% url 'logout'%}">{% trans 'Logout' %}</a>
+                    </li>
+                {% endif %}
+                
+            </ul>
+            </div>
+
+
+            </div>
+        </nav>
+
+        <div class="content container">
+            <div class="row">
+                <div class="col-md-8">
+                <br><br><br><br><br><br><br>
+                {% block messages %}
+                {% for message in messages %}
+                  <div class="alert alert-dismissable {{ message.tags }}">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {{ message }}
+                  </div>
+                {% endfor %}
+                <div id="alert-js" class="alert alert-dismissable alert-warning" hidden>
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                  <span id="alert-message"></span>
+                </div>
+                {% endblock %}
+                {% block content %}
+                {% endblock %}
+                </div>
+            </div>
+        </div>
+
+
+{% endblock %}
