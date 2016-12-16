@@ -60,7 +60,7 @@
                         </a>
                         <ul id="submenu-3" class="panel-collapse collapse panel-switch" role="menu">
                             <li><a href="{% url 'create_course' %}"><i class="fa fa-caret-right"></i>Criar novo Curso</a></li>
-                            <li><a href="#"><i class="fa fa-caret-right"></i>Ver Cursos</a></li>
+                            <li><a href="{% url 'courses' %}"><i class="fa fa-caret-right"></i>Ver Cursos</a></li>
                         </ul>
                     </li>
                     <li>
@@ -91,8 +91,10 @@
             {% endfor %}
             {% endblock %}
         </div>
-        {% block content %}
-        {% endblock %}
+        <div id="content">
+            {% block content %}
+            {% endblock %}
+        </div>
     </div>
 
 {% endblock %}

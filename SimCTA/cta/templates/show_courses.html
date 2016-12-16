@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load bootstrap3 %}
+{% load bootstrap_ui_tags %}
+
+{% block content %}
+
+{% row %}
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#active" data-toggle="tab" aria-expanded="true">{% trans 'Actives' %}</a></li>
+  <li class=""><a href="#inactive" data-toggle="tab" aria-expanded="false">{% trans 'Inactives' %}</a></li>
+</ul>
+<div id="courses_tabs" class="tab-content">
+  <div class="tab-pane fade active in" id="active">
+  <ul class="list-group">
+    {% for course in active_courses %}
+      <li class="list-group-item">
+        <h4 class="list-group-item-heading">{{course.name}}
+        <span class="label label-success pull-right">R$ {{course.value}}</span><br></h4>  
+        <p class="list-group-item-text">
+          {% if course.description%}
+          <b>{% trans 'Description' %}:</b>{{course.description}} <br>
+          {% endif %}
+          <b>{% trans 'Duration' %}:</b> {{course.duration}} semanas 
+        </p>
+        <br>
+         <a href="{% url 'edit_course' course.id%}" class="btn btn-primary btn-sm "><i class="fa fa-edit">Editar</i></a>
+      </li>
+    {% endfor %}
+  </ul>
+  </div>
+  <div class="tab-pane fade" id="inactive">
+    <ul class="list-group">
+    {% for course in inactive_courses %}
+      <li class="list-group-item">
+        <h4 class="list-group-item-heading">{{course.name}}
+        <span class="label label-success pull-right">R$ {{course.value}}</span><br></h4>  
+        <p class="list-group-item-text">
+          {% if course.description%}
+          <b>{% trans 'Description' %}:</b>{{course.description}} <br>
+          {% endif %}
+          <b>{% trans 'Duration' %}:</b> {{course.duration}} semanas 
+        </p>
+        <br>
+         <a href="{% url 'edit_course' course.id%}" class="btn btn-primary btn-sm "><i class="fa fa-edit">Editar</i></a>
+      </li>
+    {% endfor %}
+  </ul>
+  </div>
+</div>
+{% endrow %}
+{% endblock %}

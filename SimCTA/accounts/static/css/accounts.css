@@ -1,10 +1,11 @@
 #login-form{
+    margin-left: -15%;
     display: inline-block;
     zoom: 1;
     display*: inline; /* ie hack */
 }
 
-#form{
+#content{
     margin-left: 15%;
 }
 

@@ -1,0 +1,26 @@
+{% load bootstrap_ui_tags %}
+{% load bootstrap3 %}
+{% load i18n %}
+
+<p class="text-danger"><i>Os campos marcados com * são obrigatórios.</i></p>
+{% csrf_token %}
+{% row %}
+	{% bootstrap_field form.name addon_before='*'%}
+	{% bootstrap_field form.description %}
+{% column lg="6" %}
+	{% bootstrap_field form.duration addon_before='*'%}
+{% endcolumn %}
+{% column lg="6" %}
+	{% bootstrap_field form.value addon_before='*'%}
+{% endcolumn %}
+	{% bootstrap_field form.status %}
+
+{% column md_offset="5" %}
+
+  <button type="submit" class="btn btn-info">
+    {{submit_text}}
+  </button>
+	<a href="{% url cancel_url%}" class="btn btn-danger">
+    {% trans 'Cancel' %}</a>
+{% endcolumn %}
+{% endrow %}
