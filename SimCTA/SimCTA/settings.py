@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'accounts',
     'bootstrap3',
     'bootstrap_ui',
+    'notifications',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -76,8 +77,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'SimCTA.wsgi.application'
 LOGIN_URL = '/accounts/login'
 
-LOGIN_REDIRECT_URL = '/home'
-LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/cta/home'
+LOGOUT_REDIRECT_URL = '/accounts/login'
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
@@ -129,7 +130,7 @@ USE_TZ = True
 STATIC_ROOT = '/static'
 STATIC_URL = '/static/'
 
-DJANGO_BOOTSTRAP_UI_THEME = 'bootswatch-spacelab'
+DJANGO_BOOTSTRAP_UI_THEME = 'bootswatch-cerulean'
 
 MESSAGE_TAGS = {
     messages.INFO: 'alert-info',
